@@ -16,7 +16,7 @@ def parse_option():
     parser.add_argument('--dataset', type=str, default='imagenet', help='just a part of testing tag')
     parser.add_argument('--batch-size', type=int, help="batch size for single GPU")
     parser.add_argument('--data-path', type=str, default='dataset', help='path to dataset')
-    parser.add_argument('--label-path', type=str, default='dataset', help='path to label')
+    parser.add_argument('--label-path', type=str, default='', help='path to label')
     parser.add_argument('--gpu', type=str, default='0', help="gpu choose, e.g. '0,1,2, ...'")
     parser.add_argument('--output', default='output', type=str, metavar='PATH',
                         help='root of output folder, the full path is <output>/<model_name>/<tag> (default: output)')
