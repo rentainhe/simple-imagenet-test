@@ -43,7 +43,7 @@ _C.TEST.MEAN = (0.485, 0.456, 0.406)
 _C.TEST.STD = (0.229, 0.224, 0.225)
 
 def update_config(config, args):
-    config.deforst()
+    config.defrost()
     if args.batch_size:
         config.TEST.BATCH_SIZE = args.batch_size
     if args.data_path:
