@@ -41,6 +41,8 @@ _C.TEST.CROP = True
 _C.TEST.MEAN = (0.485, 0.456, 0.406)
 # Imagenet Default Std
 _C.TEST.STD = (0.229, 0.224, 0.225)
+# Frequency to logging info
+_C.PRINT_FREQ = 10
 
 def update_config(config, args):
     config.defrost()
