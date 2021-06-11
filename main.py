@@ -16,6 +16,7 @@ def parse_option():
     parser.add_argument('--dataset', type=str, default='imagenet', help='just a part of testing tag')
     parser.add_argument('--batch-size', type=int, help="batch size for single GPU")
     parser.add_argument('--data-path', type=str, default='dataset', help='path to dataset')
+    parser.add_argument('--label-path', type=str, default='dataset', help='path to label')
     parser.add_argument('--gpu', type=str, default='0', help="gpu choose, e.g. '0,1,2, ...'")
     parser.add_argument('--output', default='output', type=str, metavar='PATH',
                         help='root of output folder, the full path is <output>/<model_name>/<tag> (default: output)')
@@ -38,11 +39,11 @@ def build_transform(config):
     t = []
     if resize_im:
         if config.TEST.CROP:
-            size = int((256 / 224) * config.DATA.IMG_SIZE)
+            size = int((256 / 224) * config.TEST.IMG_SIZE)
             t.append(
                 transforms.Resize(size, interpolation=_pil_interp(config.TEST.INTERPOLATION))
             )
-            t.append(transforms.CenterCrop(config.DATA.IMG_SIZE))
+            t.append(transforms.CenterCrop(config.TEST.IMG_SIZE))
         else:
             t.append(
                 transforms.Resize((config.TEST.IMG_SIZE, config.TEST.IMG_SIZE),
@@ -56,10 +57,10 @@ def build_loader(config, dataset):
     sampler_val = SequentialSampler(dataset)
     data_loader_val = torch.utils.data.DataLoader(
         dataset, sampler=sampler_val,
-        batch_size=config.DATA.BATCH_SIZE,
+        batch_size=config.TEST.BATCH_SIZE,
         shuffle=False,
-        num_workers=config.DATA.NUM_WORKERS,
-        pin_memory=config.DATA.PIN_MEMORY,
+        num_workers=config.TEST.NUM_WORKERS,
+        pin_memory=config.TEST.PIN_MEMORY,
         drop_last=False
     )
     return data_loader_val
@@ -107,7 +108,8 @@ def validate(config, data_loader, model):
     return acc1_meter.avg, acc5_meter.avg, loss_meter.avg
 
 def main(config, model):
-    dataset_val = build_dataset(config)
+    transform = build_transform(config)
+    dataset_val = build_dataset(config, transform=transform)
     data_loader_val = build_loader(config, dataset_val)
     model.cuda()
     logger.info(str(model))
