@@ -56,6 +56,8 @@ def update_config(config, args):
         config.OUTPUT = args.output
     if args.tag:
         config.TAG = args.tag
+    if args.gpu:
+        config.GPU = args.gpu
 
     # output folder
     config.OUTPUT = os.path.join(config.OUTPUT, config.TEST.DATASET, config.TAG)
