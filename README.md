@@ -32,3 +32,13 @@ a quick start of testing the accuracy of `ResNext101` on Imagenet val dataset
 $ python main.py --data-path /.../imagenet/val/
 ```
 You need to specify `--data-path`
+
+Addition args:
+- `--gpu=str` set the specified GPU for testing, e.g. `--gpu 0` to set `device:0` for testing
+
+- `--batch-size=int` set the testing batch size
+
+- `--output=str` set the path to store the config file
+
+### 3. Details
+You only need to prepare the model and weight for testing, other details will be released later
