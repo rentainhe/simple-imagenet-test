@@ -31,7 +31,7 @@ The directory structure should be:
 ### 2. Quick Start
 a quick start of testing the accuracy of `ResNext101` on Imagenet val dataset
 ```bash
-$ python main.py --data-path /.../imagenet/val/
+$ python main.py --data-path /path/to/imagenet/val-dataset/
 ```
 You need to specify `--data-path`
 
